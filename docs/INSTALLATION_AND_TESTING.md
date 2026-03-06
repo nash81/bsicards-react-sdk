@@ -1,12 +1,43 @@
 # BSICARDS React SDK - Installation & Testing Guide
 
+## 📥 Installation Methods
+
+### Method 1: Install from GitHub Repository (PRIMARY)
+
+The SDK is installed directly from the GitHub repository:
+
+```bash
+npm install github:nash81/bsicards-react-sdk
+```
+
+**Install specific versions:**
+
+```bash
+npm install github:nash81/bsicards-react-sdk#main
+npm install github:nash81/bsicards-react-sdk#v1.0.0
+```
+
+**In package.json:**
+
+```json
+{
+  "dependencies": {
+    "@nash81/bsicards-react-sdk": "github:nash81/bsicards-react-sdk"
+  }
+}
+```
+
+### Method 2: Clone for Development
+
+To clone and develop the SDK locally:
+
 ## Prerequisites
 
 - **Node.js**: 16.0.0 or higher
 - **npm**: 7.0.0 or higher (or yarn/pnpm)
 - **Git**: For cloning the repository
 
-## Step 1: Clone the Repository
+## Step 1: Clone the Repository (For Development)
 
 ```bash
 git clone https://github.com/nash81/bsicards-react-sdk.git

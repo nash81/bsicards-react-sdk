@@ -8,17 +8,27 @@ A TypeScript/React SDK for the BSICARDS Card Issuance API with full support for 
 - Node.js 16+
 - npm or yarn
 
-### Install from npm (when published)
+### Install from GitHub Repository (PRIMARY)
+
+```bash
+npm install github:nash81/bsicards-react-sdk
+```
+
+**Install specific versions:**
+
+```bash
+npm install github:nash81/bsicards-react-sdk#main
+npm install github:nash81/bsicards-react-sdk#v1.0.0
+```
+
+### Future: Install from npm Registry
+
+Once published to npm, you can also install with:
 
 ```bash
 npm install @nash81/bsicards-react-sdk
 ```
 
-### Or install from GitHub (development)
-
-```bash
-npm install github:nash81/bsicards-react-sdk
-```
 
 ## Configuration
 

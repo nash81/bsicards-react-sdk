@@ -1,6 +1,6 @@
 # BSICARDS React SDK
 
-[![npm](https://img.shields.io/npm/v/@nash81/bsicards-react-sdk)](https://www.npmjs.com/package/@nash81/bsicards-react-sdk)
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-blue)](https://github.com/nash81/bsicards-react-sdk)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.5+-blue)](https://www.typescriptlang.org/)
 [![React](https://img.shields.io/badge/React-17+-61dafb)](https://reactjs.org/)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
@@ -16,14 +16,22 @@ A complete TypeScript/React SDK for the **BSICARDS Card Issuance API** with supp
 
 - **[Installation & Testing Guide](docs/INSTALLATION_AND_TESTING.md)** - Step-by-step setup and testing
 - **[Complete API Reference](docs/COMPLETE_GUIDE.md)** - Full API documentation with examples
+- **[npm Publishing Guide](docs/NPM_PUBLISHING_GUIDE.md)** - How to publish to npm registry
 - **[Quick Start](#quick-start)** - Get started in 5 minutes below
 
 ## 🚀 Quick Start
 
-### Install
+### Install from GitHub Repository
 
 ```bash
-npm install @nash81/bsicards-react-sdk
+npm install github:nash81/bsicards-react-sdk
+```
+
+Or with a specific version/branch:
+
+```bash
+npm install github:nash81/bsicards-react-sdk#main
+npm install github:nash81/bsicards-react-sdk#v1.0.0
 ```
 
 ### Setup Environment
@@ -152,10 +160,18 @@ Get wallet balance, deposits, transactions, list all cards by type
 
 ## 🔗 Links
 
-- **GitHub**: https://github.com/nash81/bsicards-react-sdk
-- **NPM**: https://www.npmjs.com/package/@nash81/bsicards-react-sdk
+- **GitHub Repository**: https://github.com/nash81/bsicards-react-sdk
 - **API Docs**: https://www.bsigroup.tech
 - **Support Email**: cs@bsigroup.tech
+
+## 🚀 Future: npm Registry Publishing
+
+Once published to npm registry, you can install with:
+```bash
+npm install @nash81/bsicards-react-sdk
+```
+
+See [docs/NPM_PUBLISHING_GUIDE.md](docs/NPM_PUBLISHING_GUIDE.md) for publishing to npm.
 
 ## 📄 License
 
