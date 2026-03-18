@@ -10,6 +10,7 @@ A complete TypeScript/React SDK for the **BSICARDS Card Issuance API** with supp
 ✅ **MasterCard** (9 methods)
 ✅ **Visa** (8 methods)
 ✅ **Digital Wallet** (12 methods)
+✅ **Digital Visa Wallet** (7 methods)
 ✅ **Administrator** (6 methods)
 
 ## 📚 Documentation
@@ -31,7 +32,7 @@ Or with a specific version/branch:
 
 ```bash
 npm install github:nash81/bsicards-react-sdk#main
-npm install github:nash81/bsicards-react-sdk#v1.0.0
+npm install github:nash81/bsicards-react-sdk#v1.1.0
 ```
 
 ### Setup Environment
@@ -62,6 +63,13 @@ const response = await client.mastercardCreateCard(
 
 // Get Visa Cards
 const visaCards = await client.visaGetAllCards("user@example.com");
+
+// Create a Digital Visa wallet card
+const digitalVisaCard = await client.digitalVisaCreateVirtualCard({
+  useremail: "user@example.com",
+  firstname: "John",
+  lastname: "Doe"
+});
 
 // Get Wallet Balance (Admin)
 const balance = await client.getWalletBalance();
@@ -138,12 +146,15 @@ Create, list, get details, transactions, freeze/unfreeze, fund cards
 ### Digital Wallet Operations
 Create virtual cards, 3DS operations, loyalty points, addon cards, and more
 
+### Digital Visa Wallet Operations
+Create Digital Visa virtual cards, fetch OTPs for wallet verification, and manage funding/freeze state
+
 ### Administrator Operations
 Get wallet balance, deposits, transactions, list all cards by type
 
 ## ✨ Features
 
-- ✅ 35+ API methods implemented
+- ✅ 42 API methods implemented
 - ✅ Full TypeScript support
 - ✅ React hooks & provider for easy integration
 - ✅ Custom error handling

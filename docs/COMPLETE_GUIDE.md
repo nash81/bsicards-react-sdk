@@ -1,6 +1,6 @@
 # BSICARDS React SDK - Complete Documentation
 
-A TypeScript/React SDK for the BSICARDS Card Issuance API with full support for MasterCard, Visa, Digital Wallet, and Administrator operations.
+A TypeScript/React SDK for the BSICARDS Card Issuance API with full support for MasterCard, Visa, Digital Wallet, Digital Visa Wallet, and Administrator operations.
 
 ## Installation
 
@@ -18,7 +18,7 @@ npm install github:nash81/bsicards-react-sdk
 
 ```bash
 npm install github:nash81/bsicards-react-sdk#main
-npm install github:nash81/bsicards-react-sdk#v1.0.0
+npm install github:nash81/bsicards-react-sdk#v1.1.0
 ```
 
 ### Future: Install from npm Registry
@@ -220,6 +220,35 @@ await client.digitalGetLoyaltyPoints('user@example.com', 'card-id');
 await client.digitalRedeemPoints('user@example.com', 'card-id');
 ```
 
+### Digital Visa Wallet Operations
+
+These endpoints map to the `Digital Visa Wallet Cards` folder in the Postman collection. Creating a card incurs the issuer's card creation fee, funding requires a minimum of `$5.00`, and `digitalVisaGetOtp` is intended for Google Pay / Apple Pay manual verification flows.
+
+```typescript
+// Create a Digital Visa virtual card
+await client.digitalVisaCreateVirtualCard({
+  useremail: 'user@example.com',
+  firstname: 'John',
+  lastname: 'Doe'
+});
+
+// Get all Digital Visa wallet cards
+await client.digitalVisaGetAllCards('user@example.com');
+
+// Get a single Digital Visa wallet card
+await client.digitalVisaGetCard('user@example.com', 'card-id');
+
+// Fund card (minimum $5.00)
+await client.digitalVisaFundCard('user@example.com', 'card-id', '50.00');
+
+// Retrieve OTP for wallet verification flows
+await client.digitalVisaGetOtp('user@example.com', 'card-id');
+
+// Freeze / unfreeze card
+await client.digitalVisaFreezeCard('user@example.com', 'card-id');
+await client.digitalVisaUnfreezeCard('user@example.com', 'card-id');
+```
+
 ### Administrator Operations
 
 ```typescript
@@ -358,10 +387,11 @@ vitest.config.ts       # Test configuration
 
 ## Features
 
-✅ **All 4 API Categories Implemented**
+✅ **All 5 API Categories Implemented**
 - MasterCard (9 methods)
 - Visa (8 methods)
 - Digital Wallet (12 methods)
+- Digital Visa Wallet (7 methods)
 - Administrator (6 methods)
 
 ✅ **Modern JavaScript**

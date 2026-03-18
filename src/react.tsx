@@ -60,6 +60,15 @@ export function useBSICards() {
     digitalGetLoyaltyPoints: client.digitalGetLoyaltyPoints.bind(client),
     digitalRedeemPoints: client.digitalRedeemPoints.bind(client),
 
+    // Digital Visa Wallet
+    digitalVisaCreateVirtualCard: client.digitalVisaCreateVirtualCard.bind(client),
+    digitalVisaGetAllCards: client.digitalVisaGetAllCards.bind(client),
+    digitalVisaGetCard: client.digitalVisaGetCard.bind(client),
+    digitalVisaFundCard: client.digitalVisaFundCard.bind(client),
+    digitalVisaGetOtp: client.digitalVisaGetOtp.bind(client),
+    digitalVisaFreezeCard: client.digitalVisaFreezeCard.bind(client),
+    digitalVisaUnfreezeCard: client.digitalVisaUnfreezeCard.bind(client),
+
     // Administrator
     getWalletBalance: client.getWalletBalance.bind(client),
     getDeposits: client.getDeposits.bind(client),

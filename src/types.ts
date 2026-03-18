@@ -14,13 +14,13 @@ export interface BSICardsConfig {
   fetchImpl?: typeof fetch;
 }
 
-export interface CardCreationPayload {
+export interface CardCreationPayload extends JsonObject {
   useremail: string;
   nameoncard: string;
   pin: string;
 }
 
-export interface VisaCreatePayload {
+export interface VisaCreatePayload extends JsonObject {
   useremail: string;
   nameoncard: string;
   nationalidnumber: string;
@@ -29,7 +29,7 @@ export interface VisaCreatePayload {
   dob: string;
 }
 
-export interface DigitalCreateVirtualPayload {
+export interface DigitalCreateVirtualPayload extends JsonObject {
   useremail: string;
   firstname: string;
   lastname: string;
@@ -41,5 +41,11 @@ export interface DigitalCreateVirtualPayload {
   state: string;
   countrycode: string;
   phone: string;
+}
+
+export interface DigitalVisaCreateVirtualPayload extends JsonObject {
+  useremail: string;
+  firstname: string;
+  lastname: string;
 }
 

@@ -40,7 +40,7 @@ npm whoami
 ```json
 {
   "name": "@nash81/bsicards-react-sdk",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "React SDK for BSICARDS Card Issuance API",
   "type": "module",
   "main": "dist/index.cjs",
@@ -113,10 +113,10 @@ npm publish --access public
 
 **Expected output:**
 ```
-> @nash81/bsicards-react-sdk@1.0.0
+> @nash81/bsicards-react-sdk@1.1.0
 > npm publish
 
-npm notice 📦  @nash81/bsicards-react-sdk@1.0.0
+npm notice 📦  @nash81/bsicards-react-sdk@1.1.0
 npm notice === Tarball Contents ===
 npm notice 714B  package.json
 ...
@@ -137,7 +137,7 @@ npm notice visit https://www.npmjs.com/package/@nash81/bsicards-react-sdk to see
 npm info @nash81/bsicards-react-sdk
 
 # Should output:
-# @nash81/bsicards-react-sdk@1.0.0 | MIT | deps: 0 | versions 1
+# @nash81/bsicards-react-sdk@1.1.0 | MIT | deps: 0 | versions 1
 # https://www.npmjs.com/package/@nash81/bsicards-react-sdk
 ```
 
@@ -181,8 +181,8 @@ npm install @nash81/bsicards-react-sdk
 
 ```bash
 cd D:\BSI\SDK\React
-git tag -a v1.0.0 -m "Version 1.0.0 - Initial Release"
-git push origin v1.0.0
+git tag -a v1.1.0 -m "Version 1.1.0 - Digital Visa Wallet release"
+git push origin v1.1.0
 ```
 
 ### Announce the Release
@@ -295,7 +295,7 @@ Once published to npm, developers can:
 npm install @nash81/bsicards-react-sdk
 
 # Install specific version
-npm install @nash81/bsicards-react-sdk@1.0.0
+npm install @nash81/bsicards-react-sdk@1.1.0
 
 # Save in package.json
 npm install --save @nash81/bsicards-react-sdk

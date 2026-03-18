@@ -4,11 +4,20 @@ import {
   BSICardsConfig,
   CardCreationPayload,
   DigitalCreateVirtualPayload,
-  JsonObject,
+  DigitalVisaCreateVirtualPayload,
   VisaCreatePayload
 } from "./types";
 
 const DEFAULT_BASE_URL = "https://cards.bsigroup.tech/api/";
+
+interface RuntimeEnv {
+  BSICARDS_PUBLIC_KEY?: string;
+  BSICARDS_SECRET_KEY?: string;
+}
+
+function getRuntimeEnv(): RuntimeEnv {
+  return (globalThis as typeof globalThis & { process?: { env?: RuntimeEnv } }).process?.env ?? {};
+}
 
 export class BSICardsClient {
   private publicKey: string;
@@ -17,8 +26,9 @@ export class BSICardsClient {
   private fetchImpl: typeof fetch;
 
   constructor(config: BSICardsConfig = {}) {
-    this.publicKey = config.publicKey ?? process.env.BSICARDS_PUBLIC_KEY ?? "";
-    this.secretKey = config.secretKey ?? process.env.BSICARDS_SECRET_KEY ?? "";
+    const env = getRuntimeEnv();
+    this.publicKey = config.publicKey ?? env.BSICARDS_PUBLIC_KEY ?? "";
+    this.secretKey = config.secretKey ?? env.BSICARDS_SECRET_KEY ?? "";
     this.baseUrl = config.baseUrl ?? DEFAULT_BASE_URL;
     this.fetchImpl = config.fetchImpl ?? fetch;
   }
@@ -176,6 +186,35 @@ export class BSICardsClient {
     return this.post("redeempoints", { useremail, cardid });
   }
 
+  // Digital Visa Wallet
+  digitalVisaCreateVirtualCard(payload: DigitalVisaCreateVirtualPayload) {
+    return this.post("digital-wallet-visa/create-card", payload);
+  }
+
+  digitalVisaGetAllCards(useremail: string) {
+    return this.post("digital-wallet-visa/get-all-cards", { useremail });
+  }
+
+  digitalVisaGetCard(useremail: string, cardid: string) {
+    return this.post("digital-wallet-visa/get-card", { useremail, cardid });
+  }
+
+  digitalVisaFundCard(useremail: string, cardid: string, amount: string) {
+    return this.post("digital-wallet-visa/fund-card", { useremail, cardid, amount });
+  }
+
+  digitalVisaGetOtp(useremail: string, cardid: string) {
+    return this.post("digital-wallet-visa/get-otp", { useremail, cardid });
+  }
+
+  digitalVisaFreezeCard(useremail: string, cardid: string) {
+    return this.post("digital-wallet-visa/block-card", { useremail, cardid });
+  }
+
+  digitalVisaUnfreezeCard(useremail: string, cardid: string) {
+    return this.post("digital-wallet-visa/unblock-card", { useremail, cardid });
+  }
+
   // Administrator
   getWalletBalance() {
     return this.get("admin/balance");
@@ -205,14 +244,14 @@ export class BSICardsClient {
     return this.request<T>("GET", endpoint);
   }
 
-  private async post<T = unknown>(endpoint: string, body: JsonObject): Promise<ApiResponse<T>> {
+  private async post<T = unknown>(endpoint: string, body: object): Promise<ApiResponse<T>> {
     return this.request<T>("POST", endpoint, body);
   }
 
   private async request<T = unknown>(
     method: "GET" | "POST",
     endpoint: string,
-    body?: JsonObject
+    body?: object
   ): Promise<ApiResponse<T>> {
     this.validateCredentials();
 

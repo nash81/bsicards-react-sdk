@@ -1,6 +1,6 @@
 {
   "name": "@nash81/bsicards-react-sdk",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "React SDK for BSICARDS Card Issuance API",
   "type": "module",
   "main": "dist/index.cjs",
@@ -22,7 +22,8 @@
     "sdk",
     "mastercard",
     "visa",
-    "digital-wallet"
+    "digital-wallet",
+    "digital-visa"
   ],
   "author": "BSI Group <cs@bsigroup.tech>",
   "license": "MIT",

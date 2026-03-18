@@ -14,7 +14,7 @@ npm install github:nash81/bsicards-react-sdk
 
 ```bash
 npm install github:nash81/bsicards-react-sdk#main
-npm install github:nash81/bsicards-react-sdk#v1.0.0
+npm install github:nash81/bsicards-react-sdk#v1.1.0
 ```
 
 **In package.json:**
@@ -92,14 +92,17 @@ npm run test
 
 Expected output:
 ```
-✓ tests/client.test.ts (3)
+✓ tests/client.test.ts (7)
   ✓ throws when credentials are missing
   ✓ calls visa get all endpoint with required payload
   ✓ implements administrator GET endpoint
   ✓ implements digital 3ds approval endpoint
+  ✓ implements digital visa virtual card creation endpoint
+  ✓ implements digital visa wallet lookup endpoints
+  ✓ implements digital visa wallet management endpoints
 
 Test Files  1 passed (1)
-     Tests  4 passed (4)
+     Tests  7 passed (7)
 ```
 
 ### Run tests in watch mode (for development):
