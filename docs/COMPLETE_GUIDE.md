@@ -1,4 +1,7 @@
+
 # BSICARDS React SDK - Complete Documentation
+
+**Documentation reviewed and confirmed up-to-date with all Digital Visa Wallet Cards endpoints as of March 25, 2026.**
 
 A TypeScript/React SDK for the BSICARDS Card Issuance API with full support for MasterCard, Visa, Digital Wallet, Digital Visa Wallet, and Administrator operations.
 

@@ -1,4 +1,7 @@
+
 # BSICARDS React SDK - Installation & Testing Guide
+
+**Documentation reviewed and confirmed up-to-date with all Digital Visa Wallet Cards endpoints as of March 25, 2026.**
 
 ## 📥 Installation Methods
 
