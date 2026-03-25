@@ -1,3 +1,13 @@
+import {
+  WalletWithdrawalFeePayload,
+  WalletWithdrawalFeeResponse,
+  WalletWithdrawPayload,
+  WalletWithdrawResponse,
+  WalletWithdrawStatusPayload,
+  WalletWithdrawStatusResponse,
+  WalletGetSpecificAddressResponse,
+  WalletGetBalanceResponse
+} from "./types";
 import { BSICardsError, BSICardsValidationError } from "./errors";
 import {
   ApiResponse,
@@ -5,7 +15,15 @@ import {
   CardCreationPayload,
   DigitalCreateVirtualPayload,
   DigitalVisaCreateVirtualPayload,
-  VisaCreatePayload
+  VisaCreatePayload,
+  CreateWalletAddressPayload,
+  WalletAddress,
+  SwapCurrenciesResponse,
+  SwapStatusResponse,
+  SwapEstimatePayload,
+  SwapEstimateResponse,
+  SwapCreatePayload,
+  SwapCreateResponse
 } from "./types";
 
 const DEFAULT_BASE_URL = "https://cards.bsigroup.tech/api/";
@@ -240,6 +258,58 @@ export class BSICardsClient {
     return this.get("admin/digitalcards");
   }
 
+   // Wallet As A Service - Swap
+  async swapGetCurrencies() {
+    return this.get<SwapCurrenciesResponse>("exchange/currencies");
+  }
+
+  async swapGetStatus(transaction_id: string) {
+    const url = `exchange/status?transaction_id=${encodeURIComponent(transaction_id)}`;
+    return this.get<SwapStatusResponse>(url);
+  }
+
+  async swapGetEstimate(payload: SwapEstimatePayload) {
+    return this.post<SwapEstimateResponse>("exchange/estimate", payload);
+  }
+
+  async swapCreate(payload: SwapCreatePayload) {
+    return this.post<SwapCreateResponse>("exchange/create", payload);
+  }
+
+  // Wallet As A Service - Wallet
+  async walletCreateAddress(payload: CreateWalletAddressPayload) {
+    return this.post<WalletAddress>("wallet/create-address", payload);
+  }
+
+  async walletGetAllAddresses(useremail: string) {
+    // The API expects GET, but may require useremail in body or query. We'll use query param for GET.
+    const url = `wallet/addresses?useremail=${encodeURIComponent(useremail)}`;
+    return this.get<WalletAddress[]>(url);
+  }
+
+  // Wallet As A Service - Wallet (continued)
+  async walletGetSpecificAddress(uuid: string, useremail: string) {
+    const url = `wallet/address/${encodeURIComponent(uuid)}?useremail=${encodeURIComponent(useremail)}`;
+    return this.get<WalletGetSpecificAddressResponse>(url);
+  }
+
+  async walletGetBalance(uuid: string, useremail: string) {
+    const url = `wallet/balance?uuid=${encodeURIComponent(uuid)}&useremail=${encodeURIComponent(useremail)}`;
+    return this.get<WalletGetBalanceResponse>(url);
+  }
+
+  async walletWithdrawalFee(payload: WalletWithdrawalFeePayload) {
+    return this.post<WalletWithdrawalFeeResponse>("wallet/withdrawal-fee", payload);
+  }
+
+  async walletWithdraw(payload: WalletWithdrawPayload) {
+    return this.post<WalletWithdrawResponse>("wallet/withdraw", payload);
+  }
+
+  async walletWithdrawStatus(payload: WalletWithdrawStatusPayload) {
+    return this.post<WalletWithdrawStatusResponse>("wallet/withdrawal-status", payload);
+  }
+
   private async get<T = unknown>(endpoint: string): Promise<ApiResponse<T>> {
     return this.request<T>("GET", endpoint);
   }
@@ -283,4 +353,3 @@ export class BSICardsClient {
     }
   }
 }
-

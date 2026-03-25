@@ -150,5 +150,69 @@ describe("BSICardsClient", () => {
       cardid: "card-1"
     });
   });
-});
 
+  it("implements Wallet As A Service - Swap endpoints", async () => {
+    const fetchImpl = mockFetch({ code: 200, status: "success", message: "ok", data: [] });
+    const client = new BSICardsClient({
+      publicKey: "pk_test",
+      secretKey: "sk_test",
+      fetchImpl
+    });
+
+    await client.swapGetCurrencies();
+    await client.swapGetStatus("txid-123");
+    await client.swapGetEstimate({ from: "BTC", to: "USDT-TRC20", network_from: "BTC", network_to: "TRC20", amount: 0.5 });
+    await client.swapCreate({ coin_from: "BTC", coin_to: "USDT-TRC20", network_from: "BTC", network_to: "TRC20", deposit_amount: 0.5, withdrawal: "address", withdrawal_extra_id: "NA" });
+
+    const calls = (fetchImpl as unknown as ReturnType<typeof vi.fn>).mock.calls;
+    expect(String(calls[0][0])).toContain("exchange/currencies");
+    expect(calls[0][1].method).toBe("GET");
+    expect(String(calls[1][0])).toContain("exchange/status?transaction_id=txid-123");
+    expect(calls[1][1].method).toBe("GET");
+    expect(String(calls[2][0])).toContain("exchange/estimate");
+    expect(calls[2][1].method).toBe("POST");
+    expect(JSON.parse(calls[2][1].body as string)).toEqual({ from: "BTC", to: "USDT-TRC20", network_from: "BTC", network_to: "TRC20", amount: 0.5 });
+    expect(String(calls[3][0])).toContain("exchange/create");
+    expect(calls[3][1].method).toBe("POST");
+    expect(JSON.parse(calls[3][1].body as string)).toEqual({ coin_from: "BTC", coin_to: "USDT-TRC20", network_from: "BTC", network_to: "TRC20", deposit_amount: 0.5, withdrawal: "address", withdrawal_extra_id: "NA" });
+  });
+
+  it("implements Wallet As A Service - Wallet endpoints", async () => {
+    const fetchImpl = mockFetch({ code: 200, status: "success", message: "ok", data: [] });
+    const client = new BSICardsClient({
+      publicKey: "pk_test",
+      secretKey: "sk_test",
+      fetchImpl
+    });
+
+    await client.walletCreateAddress({ useremail: "test@bsigroup.tech", coin: "PAXG" });
+    await client.walletGetAllAddresses("test@bsigroup.tech");
+
+    // New endpoints
+    await client.walletGetSpecificAddress("uuid-123", "test@bsigroup.tech");
+    await client.walletGetBalance("uuid-123", "test@bsigroup.tech");
+    await client.walletWithdrawalFee({ uuid: "uuid-123", to_address: "address", amount: "10.0", coin: "PAXG", useremail: "test@bsigroup.tech" });
+    await client.walletWithdraw({ uuid: "uuid-123", to_address: "address", amount: "10.0", coin: "PAXG", useremail: "test@bsigroup.tech" });
+    await client.walletWithdrawStatus({ tx_hash: "0xabc", coin: "PAXG" });
+
+    const calls = (fetchImpl as unknown as ReturnType<typeof vi.fn>).mock.calls;
+    expect(String(calls[0][0])).toContain("wallet/create-address");
+    expect(calls[0][1].method).toBe("POST");
+    expect(JSON.parse(calls[0][1].body as string)).toEqual({ useremail: "test@bsigroup.tech", coin: "PAXG" });
+    expect(String(calls[1][0])).toContain("wallet/addresses?useremail=test%40bsigroup.tech");
+    expect(calls[1][1].method).toBe("GET");
+    expect(String(calls[2][0])).toContain("wallet/address/uuid-123?useremail=test%40bsigroup.tech");
+    expect(calls[2][1].method).toBe("GET");
+    expect(String(calls[3][0])).toContain("wallet/balance?uuid=uuid-123&useremail=test%40bsigroup.tech");
+    expect(calls[3][1].method).toBe("GET");
+    expect(String(calls[4][0])).toContain("wallet/withdrawal-fee");
+    expect(calls[4][1].method).toBe("POST");
+    expect(JSON.parse(calls[4][1].body as string)).toEqual({ uuid: "uuid-123", to_address: "address", amount: "10.0", coin: "PAXG", useremail: "test@bsigroup.tech" });
+    expect(String(calls[5][0])).toContain("wallet/withdraw");
+    expect(calls[5][1].method).toBe("POST");
+    expect(JSON.parse(calls[5][1].body as string)).toEqual({ uuid: "uuid-123", to_address: "address", amount: "10.0", coin: "PAXG", useremail: "test@bsigroup.tech" });
+    expect(String(calls[6][0])).toContain("wallet/withdrawal-status");
+    expect(calls[6][1].method).toBe("POST");
+    expect(JSON.parse(calls[6][1].body as string)).toEqual({ tx_hash: "0xabc", coin: "PAXG" });
+  });
+});

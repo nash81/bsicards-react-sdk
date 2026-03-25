@@ -1,5 +1,4 @@
 export * from "./types";
-export * from "./errors";
 export * from "./client";
 export * from "./react";
-
+export * from "./errors";
